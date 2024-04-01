@@ -1,8 +1,8 @@
 <template>
 <div id="app">
-    <div class="container">
-        <SearchHastag @search-filter="searchQuery = $event" />
-        <HashTag :hashtags="allHashtags" @hashtag-filter="currentHashtag = $event" />
+  <div class="container">
+        <SearchHastag @search-filter="searchQuery = $event" :selected-hashtag="searchQuery" />
+        <HashTag :hashtags="allHashtags" @hashtag-selected="searchQuery = $event" />
     </div>
     <div class="blog-cards-container">
         <div v-for="post in filteredPosts" :key="post.id">
@@ -15,11 +15,13 @@
 <script>
 import {
     ref,
-    computed
+    computed,
+    watch
 } from 'vue';
 import {
     useMicroblog
 } from './components/use-microblog';
+
 import BlogCard from './components/BlogCard.vue';
 import HashTag from './components/HashTag.vue';
 import SearchHastag from './components/SearchHastag.vue';
@@ -57,6 +59,10 @@ export default {
             }
         });
 
+        watch(currentHashtag, (newVal) => {
+            searchQuery.value = newVal;
+        });
+
         return {
             posts,
             likePost,
@@ -77,13 +83,12 @@ export default {
     text-align: center;
     color: #2c3e50;
     margin-top: 60px;
-    margin-left: 60px;
 
 }
 
 .container {
     text-align: left;
-    margin: 20px 0;
+    margin: 20px 30px;
 }
 
 .blog-cards-container {
@@ -91,6 +96,6 @@ export default {
     flex-wrap: wrap;
     flex-grow: 3;
     gap: 80px;
-    margin-bottom: 50px;
+    margin: 30px;
 }
 </style>

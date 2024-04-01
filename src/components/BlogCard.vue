@@ -71,4 +71,35 @@ span {
     cursor: pointer;
     font-size: 0.9rem;
 }
+
+@media only screen and (max-width: 600px) {
+    .blog-card {
+        width: 100%; 
+        height: 400px;
+    }
+
+    .title {
+        font-size: 16px;
+        padding-bottom: 20px;
+    }
+
+    .content {
+        font-size: 0.8rem; 
+        padding: 0px 10px 12px 10px; 
+    }
+
+    .like-button {
+        height: auto; 
+        padding: 10px 0; 
+    }
+
+    .like-button button {
+        margin-bottom: 4px; 
+    }
+
+    span {
+        font-size: 0.8rem; 
+    }
+}
+
 </style>

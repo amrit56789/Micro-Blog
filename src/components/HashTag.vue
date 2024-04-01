@@ -10,7 +10,10 @@
     methods: {
       filterByHashtag(hashtag) {
         this.$emit('hashtag-filter', hashtag);
-      }
+      },
+      selectHashtag(tag) {
+      this.$emit('hashtag-selected', tag);
+    }
     }
   }
   </script>
