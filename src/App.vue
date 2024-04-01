@@ -1,8 +1,7 @@
 <template>
 <div id="app">
-  <div class="container">
+    <div class="container">
         <SearchHastag @search-filter="searchQuery = $event" :selected-hashtag="searchQuery" />
-        <HashTag :hashtags="allHashtags" @hashtag-selected="searchQuery = $event" />
     </div>
     <div class="blog-cards-container">
         <div v-for="post in filteredPosts" :key="post.id">
@@ -23,15 +22,13 @@ import {
 } from './components/use-microblog';
 
 import BlogCard from './components/BlogCard.vue';
-import HashTag from './components/HashTag.vue';
 import SearchHastag from './components/SearchHastag.vue';
 import {
     postsData
-} from "./PostData"
+} from "./components/jsonData/PostData"
 
 export default {
     components: {
-        HashTag,
         BlogCard,
         SearchHastag
     },

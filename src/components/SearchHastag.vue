@@ -1,15 +1,18 @@
 <template>
-<label for="search">Search HashTag : </label>
-<input v-model="searchTerm" id="search" @input="filterPosts" placeholder="Search hashtags...">
+<div>
+    <div>
+        <label for="search">Search HashTag : </label>
+        <input v-model="searchTerm" id="search" @input="filterPosts" placeholder="Search hashtags...">
+    </div>
+    <div>
+        <span v-for="hashtag in hashtags" :key="hashtag" @click="filterByHashtag(hashtag)">{{ hashtag }}</span>
+    </div>
+</div>
 </template>
 
 <script>
-import {
-    watch
-} from 'vue';
-
 export default {
-    props: ['selectedHashtag'],
+    props: ['selectedHashtag', 'hashtags'],
     data() {
         return {
             searchTerm: ''
@@ -18,15 +21,23 @@ export default {
     methods: {
         filterPosts() {
             this.$emit('search-filter', this.searchTerm);
+        },
+        filterByHashtag(hashtag) {
+            this.searchTerm = hashtag;
+            this.$emit('hashtag-filter', hashtag);
         }
     },
-    mounted() {
-        watch(() => this.selectedHashtag, (newVal) => {
-            this.searchTerm = newVal;
-        }, {
-            immediate: true
-        });
-    },
+    watch: {
+        selectedHashtag: {
+            immediate: true,
+            handler(newVal) {
+                this.searchTerm = newVal;
+            }
+        },
+        searchTerm() {
+            this.filterPosts();
+        }
+    }
 }
 </script>
 
@@ -39,5 +50,10 @@ input {
 
 input:focus {
     outline: none;
+}
+
+span {
+    cursor: pointer;
+    margin-right: 10px;
 }
 </style>
