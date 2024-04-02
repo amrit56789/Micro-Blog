@@ -28,16 +28,21 @@ export default {
         }
     },
     watch: {
-        selectedHashtag: {
-            immediate: true,
-            handler(newVal) {
-                this.searchTerm = newVal;
-            }
-        },
-        searchTerm() {
+    selectedHashtag: {
+        immediate: true,
+        handler(newVal) {
+            this.searchTerm = newVal;
+        }
+    },
+    searchTerm(newVal) {
+        if (newVal === '') {
+            this.$emit('clear-filter');
+        } else {
             this.filterPosts();
         }
     }
+}
+
 }
 </script>
 

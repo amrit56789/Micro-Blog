@@ -1,7 +1,7 @@
 <template>
 <div id="app">
     <div class="container">
-        <SearchHastag @search-filter="searchQuery = $event" :selected-hashtag="searchQuery" />
+        <SearchHastag @search-filter="searchQuery = $event" @clear-filter="clearFilter" :selected-hashtag="searchQuery" />
     </div>
     <div class="blog-cards-container">
         <div v-for="post in filteredPosts" :key="post.id">
@@ -56,6 +56,10 @@ export default {
             }
         });
 
+        function clearFilter() {
+            currentHashtag.value = '';
+        }
+
         watch(currentHashtag, (newVal) => {
             searchQuery.value = newVal;
         });
@@ -66,7 +70,8 @@ export default {
             searchQuery,
             allHashtags,
             currentHashtag,
-            filteredPosts
+            filteredPosts,
+            clearFilter
         };
     }
 }
